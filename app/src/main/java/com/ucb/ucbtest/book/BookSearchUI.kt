@@ -17,7 +17,7 @@ import com.ucb.ucbtest.navigation.Screen
 
 @Composable
 fun BookSearchUI(
-    navController: NavController, // Agregar navController aquí
+    navController: NavController,
     bookViewModel: BookViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
     onBookClick: (Book) -> Unit
 ) {

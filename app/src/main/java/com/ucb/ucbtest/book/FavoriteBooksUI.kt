@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.ucb.domain.Book
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import com.ucb.ucbtest.navigation.Screen
 
 
 @Composable
@@ -40,7 +41,9 @@ fun FavoriteBooksUI(
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController.navigate("movieSearchScreen") },
+            onClick = {
+                navController.navigate(Screen.BookSearchScreen.route)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
