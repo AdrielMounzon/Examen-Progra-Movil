@@ -14,6 +14,7 @@ import com.ucb.ucbtest.takephoto.TakePhotoUI
 import com.ucb.ucbtest.transactions.RegisterTransactionUI
 import com.ucb.ucbtest.transactions.TransactionsListUI
 import com.ucb.ucbtest.book.BookSearchUI
+import com.ucb.ucbtest.book.FavoriteBooksUI
 import com.ucb.ucbtest.ui.theme.UcbtestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BookSearchUI(onBookClick = { /* No hacemos nada por ahora */ })
+            FavoriteBooksUI()
         }
     }
 }

@@ -42,6 +42,7 @@ import com.ucb.usecases.RegisterExpense
 import com.ucb.usecases.ListTransactions
 import com.ucb.usecases.DeleteTransaction
 import com.ucb.usecases.GetBalance
+import com.ucb.usecases.GetFavoriteBooks
 import com.ucb.usecases.SaveBook
 import com.ucb.usecases.SearchBooks
 
@@ -234,6 +235,12 @@ object AppModule {
     @Singleton
     fun provideSaveBook(bookRepository: BookRepository): SaveBook {
         return SaveBook(bookRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFavoriteBooks(repository: BookRepository): GetFavoriteBooks {
+        return GetFavoriteBooks(repository)
     }
 
 }
