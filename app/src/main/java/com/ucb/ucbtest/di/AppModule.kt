@@ -1,17 +1,22 @@
 package com.ucb.ucbtest.di
 
 import android.content.Context
+import com.ucb.data.BookRepository
 import com.ucb.data.GithubRepository
 import com.ucb.data.LoginRepository
 import com.ucb.data.MovieRepository
 import com.ucb.data.PushNotificationRepository
 import com.ucb.data.TransactionRepository
+import com.ucb.data.book.IBookLocalDataSource
+import com.ucb.data.book.IBookRemoteDataSource
 import com.ucb.data.datastore.ILoginDataStore
 import com.ucb.data.git.IGitRemoteDataSource
 import com.ucb.data.git.ILocalDataSource
 import com.ucb.data.movie.IMovieRemoteDataSource
 import com.ucb.data.push.IPushDataSource
 import com.ucb.data.transactions.ITransactionLocalDataSource
+import com.ucb.framework.book.BookLocalDataSource
+import com.ucb.framework.book.BookRemoteDataSource
 import com.ucb.framework.github.GithubLocalDataSource
 import com.ucb.framework.github.GithubRemoteDataSource
 import com.ucb.framework.movie.MovieRemoteDataSource
@@ -37,6 +42,8 @@ import com.ucb.usecases.RegisterExpense
 import com.ucb.usecases.ListTransactions
 import com.ucb.usecases.DeleteTransaction
 import com.ucb.usecases.GetBalance
+import com.ucb.usecases.SaveBook
+import com.ucb.usecases.SearchBooks
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -194,6 +201,39 @@ object AppModule {
         repository: TransactionRepository
     ): GetBalance {
         return GetBalance(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookRemoteDataSource(retrofit: RetrofitBuilder): IBookRemoteDataSource {
+        return BookRemoteDataSource(retrofit)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookLocalDataSource(@ApplicationContext context: Context): IBookLocalDataSource {
+        return BookLocalDataSource(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookRepository(
+        remoteDataSource: IBookRemoteDataSource,
+        localDataSource: IBookLocalDataSource
+    ): BookRepository {
+        return BookRepository(remoteDataSource, localDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchBooks(bookRepository: BookRepository): SearchBooks {
+        return SearchBooks(bookRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSaveBook(bookRepository: BookRepository): SaveBook {
+        return SaveBook(bookRepository)
     }
 
 }
