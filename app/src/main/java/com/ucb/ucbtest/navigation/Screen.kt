@@ -10,5 +10,6 @@ sealed class Screen(val route: String) {
     object CounterScreen: Screen("counter")
     object TransactionsListScreen : Screen("transactions_list")
     object RegisterTransactionScreen : Screen("register_transaction")
-
+    object FavoriteBooksScreen : Screen("favoriteBooks")
+    object BookSearchScreen : Screen("movieSearch")
 }

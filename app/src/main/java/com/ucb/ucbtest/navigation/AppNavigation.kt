@@ -13,6 +13,8 @@ import com.ucb.ucbtest.counter.CounterUI
 import com.ucb.ucbtest.gitalias.GitaliasUI
 import com.ucb.ucbtest.login.LoginUI
 import com.ucb.ucbtest.movie.MoviesUI
+import com.ucb.ucbtest.book.BookSearchUI
+import com.ucb.ucbtest.book.FavoriteBooksUI
 import com.ucb.ucbtest.moviedetail.MovieDetailUI
 import com.ucb.ucbtest.takephoto.TakePhotoUI
 import kotlinx.serialization.encodeToString
@@ -29,7 +31,7 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.TransactionsListScreen.route,
+        startDestination = Screen.BookSearchScreen.route,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
@@ -99,6 +101,22 @@ fun AppNavigation() {
                 navController.navigate(Screen.TransactionsListScreen.route)
             })
         }
+
+        composable(Screen.FavoriteBooksScreen.route) {
+            FavoriteBooksUI(navController = navController)
+        }
+
+        composable(Screen.BookSearchScreen.route) {
+            BookSearchUI(
+                navController = navController,
+                onBookClick = { book ->
+                    val bookJson = Json.encodeToString(book)
+                    val encodeBookJson = URLEncoder.encode(bookJson, "UTF-8")
+                    navController.navigate("${Screen.MovieDetailScreen.route}/$encodeBookJson")
+                }
+            )
+        }
+
 
 
     }

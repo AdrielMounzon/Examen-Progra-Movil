@@ -12,9 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.ucb.domain.Book
+import androidx.navigation.NavController
+import com.ucb.ucbtest.navigation.Screen
 
 @Composable
 fun BookSearchUI(
+    navController: NavController, // Agregar navController aquí
     bookViewModel: BookViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
     onBookClick: (Book) -> Unit
 ) {
@@ -25,6 +28,20 @@ fun BookSearchUI(
         .fillMaxSize()
         .padding(16.dp)
     ) {
+        // Botón para navegar a la pantalla de favoritos
+        Row(
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Button(onClick = {
+                navController.navigate(Screen.FavoriteBooksScreen.route)
+            }) {
+                Text("Favoritos")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Text("Buscar libros", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(8.dp))
 
