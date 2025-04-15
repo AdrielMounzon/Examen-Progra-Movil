@@ -7,6 +7,9 @@ import com.ucb.framework.dto.MovieDto
 import com.ucb.framework.persistence.GitAccount
 import com.ucb.domain.Transaction
 import com.ucb.framework.persistence.TransactionEntity
+import com.ucb.domain.Book
+import com.ucb.framework.dto.BookDto
+import com.ucb.framework.persistence.BookEntity
 
 fun AvatarResponseDto.toModel(): Gitalias {
     return Gitalias(
@@ -65,4 +68,28 @@ fun TransactionEntity.toModel(): Transaction {
         )
         else -> throw IllegalArgumentException("Tipo desconocido")
     }
+}
+
+fun BookDto.toModel(): Book {
+    return Book(
+        title = this.title ?: "Sin título",
+        authors = this.authors ?: listOf("Autor desconocido"),
+        publishYear = this.firstPublishYear ?: 0
+    )
+}
+
+fun Book.toEntity(): BookEntity {
+    return BookEntity(
+        title = this.title,
+        authors = this.authors.joinToString(", "),
+        publishYear = this.publishYear
+    )
+}
+
+fun BookEntity.toModel(): Book {
+    return Book(
+        title = this.title,
+        authors = this.authors.split(", "),
+        publishYear = this.publishYear
+    )
 }
